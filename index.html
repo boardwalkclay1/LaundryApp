@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Laundry Bubbles</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="lb-header">
+      <div class="lb-logo">Laundry Bubbles</div>
+      <div class="lb-subtitle">Peer-to-peer, encrypted, no-backend flow</div>
+    </header>
+
+    <!-- Main content -->
+    <main class="lb-main">
+      <!-- STEP 1: Signup -->
+      <section id="view-signup" class="lb-view active">
+        <h1 class="lb-title">Set up your bubble</h1>
+        <p class="lb-text">
+          Enter your info so you can easily send and receive connection codes via email or SMS.
+        </p>
+
+        <form id="signup-form" class="lb-card">
+          <div class="lb-field">
+            <label for="user-role">I am</label>
+            <select id="user-role" required>
+              <option value="washer">Washer</option>
+              <option value="client">Client</option>
+            </select>
+          </div>
+
+          <div class="lb-field">
+            <label for="user-name">Name</label>
+            <input id="user-name" type="text" placeholder="Your name" required />
+          </div>
+
+          <div class="lb-field">
+            <label for="user-email">Email</label>
+            <input id="user-email" type="email" placeholder="you@example.com" required />
+          </div>
+
+          <div class="lb-field">
+            <label for="user-phone">Phone number</label>
+            <input id="user-phone" type="tel" placeholder="+1 404 555 1234" required />
+          </div>
+
+          <button type="submit" class="lb-button primary">Continue</button>
+        </form>
+      </section>
+
+      <!-- STEP 2: Connection + code exchange -->
+      <section id="view-connect" class="lb-view">
+        <h1 class="lb-title">Connect with your partner</h1>
+        <p class="lb-text">
+          Generate a one-time connection code, send it, and paste the code you receive back.
+        </p>
+
+        <div class="lb-card">
+          <h2 class="lb-section-title">Your connection code</h2>
+          <p class="lb-text small">
+            Share this with your partner via SMS or email. They will send you back their code.
+          </p>
+
+          <div class="lb-code-row">
+            <span id="local-code" class="lb-code-value">—</span>
+            <button id="btn-generate-code" class="lb-button secondary small">
+              Generate code
+            </button>
+          </div>
+
+          <div class="lb-share-row">
+            <button id="btn-send-email" class="lb-button outline small">
+              Send via email
+            </button>
+            <button id="btn-send-sms" class="lb-button outline small">
+              Send via SMS
+            </button>
+          </div>
+        </div>
+
+        <div class="lb-card">
+          <h2 class="lb-section-title">Partner’s code</h2>
+          <p class="lb-text small">
+            Paste the code they send you here. Once both of you do this, you’re connected.
+          </p>
+
+          <div class="lb-field">
+            <label for="partner-code">Partner code</label>
+            <textarea
+              id="partner-code"
+              rows="3"
+              placeholder="Paste the code you received"
+            ></textarea>
+          </div>
+
+          <button id="btn-connect" class="lb-button primary">
+            I have their code – connect us
+          </button>
+        </div>
+
+        <div id="connect-status" class="lb-status"></div>
+      </section>
+
+      <!-- STEP 3: Connected session -->
+      <section id="view-session" class="lb-view">
+        <h1 class="lb-title">Bubble connected</h1>
+        <p class="lb-text">
+          You’re now connected peer-to-peer. When you plug in your map engine, both sides will see
+          live location and status here.
+        </p>
+
+        <div class="lb-card">
+          <h2 class="lb-section-title">Session info</h2>
+          <div class="lb-session-row">
+            <span class="lb-label">You:</span>
+            <span id="session-user-summary"></span>
+          </div>
+          <div class="lb-session-row">
+            <span class="lb-label">Role:</span>
+            <span id="session-role-summary"></span>
+          </div>
+          <div class="lb-session-row">
+            <span class="lb-label">Connection code:</span>
+            <span id="session-code-summary"></span>
+          </div>
+        </div>
+
+        <div class="lb-card">
+          <h2 class="lb-section-title">Map / job status</h2>
+          <div id="map-container" class="lb-map-placeholder">
+            <!-- Your custom map engine mounts here -->
+            <div class="lb-map-message">
+              Map placeholder – call <code>initMapEngine('map-container')</code> in app.js
+            </div>
+          </div>
+        </div>
+
+        <button id="btn-reset" class="lb-button outline">
+          End session and start over
+        </button>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
