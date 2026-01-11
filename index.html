@@ -2,65 +2,45 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Laundry Bubbles – Cosmic Wash Network</title>
+<title>Laundry Bubbles – App Shell</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  html, body {
-    height: 100%;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: #050214;
-    color: #f6f4ff;
-    overflow: hidden;
-  }
-  body {
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #05020c; color: #f5f2ff; }
+
+  #app {
     display: flex;
     flex-direction: column;
+    height: 100%;
   }
 
-  /* Top bar */
-  #topbar {
+  header {
     flex: 0 0 auto;
     padding: 10px 14px;
     display: flex;
-    align-items: center;
     gap: 10px;
+    align-items: center;
     background:
-      radial-gradient(circle at -10% 0%, rgba(180,140,255,0.55) 0, transparent 50%),
-      radial-gradient(circle at 110% 0%, rgba(120,220,255,0.45) 0, transparent 55%),
-      linear-gradient(to right, #050219, #0a0628, #020010);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    box-shadow: 0 4px 26px rgba(0,0,0,0.8);
-    z-index: 20;
+      radial-gradient(circle at 0% 0%, rgba(160,130,255,0.6) 0, transparent 55%),
+      radial-gradient(circle at 100% 0%, rgba(110,220,255,0.5) 0, transparent 55%),
+      linear-gradient(to right, #060419, #0b0626);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    box-shadow: 0 4px 25px rgba(0,0,0,0.7);
   }
+
   #brand {
     display: flex;
-    align-items: center;
     gap: 8px;
+    align-items: center;
   }
   #brand-icon {
     width: 24px;
     height: 24px;
     border-radius: 35%;
     background:
-      radial-gradient(circle at 30% 30%, #ffffff 0, #f0edff 25%, #d1c3ff 50%, #8b76ff 80%, #221764 100%);
-    box-shadow: 0 0 12px rgba(144,114,255,0.85);
+      radial-gradient(circle at 30% 30%, #ffffff 0, #f7f6ff 25%, #d9d2ff 50%, #937dff 80%, #23145d 100%);
+    box-shadow: 0 0 15px rgba(150,130,255,0.95);
     position: relative;
-    overflow: hidden;
-  }
-  #brand-icon::before {
-    content: "";
-    position: absolute;
-    inset: 4px;
-    border-radius: 28%;
-    background:
-      radial-gradient(circle at 25% 25%, rgba(255,255,255,0.9) 0, transparent 45%),
-      radial-gradient(circle at 75% 80%, rgba(173,223,255,0.9) 0, transparent 55%),
-      radial-gradient(circle, rgba(84,58,210,0.8) 0, transparent 65%);
   }
   #brand-icon::after {
     content: "";
@@ -69,10 +49,7 @@
     height: 10px;
     border-radius: 999px;
     border: 2px solid rgba(255,255,255,0.95);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    box-shadow: 0 0 7px rgba(255,255,255,0.95);
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
   }
   #brand-text {
     display: flex;
@@ -81,1024 +58,675 @@
   #brand-title {
     font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
   #brand-subtitle {
     font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #bcb5ff;
-  }
-
-  .btn {
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.18);
-    padding: 6px 12px;
-    font-size: 12px;
-    background: rgba(10,6,40,0.8);
-    color: #f6f4ff;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    backdrop-filter: blur(8px);
-    transition: background 0.13s, transform 0.13s, box-shadow 0.13s, border-color 0.13s;
-  }
-  .btn span.icon {
-    font-size: 13px;
-  }
-  .btn:hover {
-    background: rgba(142,113,255,0.95);
-    border-color: rgba(214,202,255,0.9);
-    box-shadow: 0 0 16px rgba(150,120,255,0.85);
-    transform: translateY(-1px);
-  }
-  .btn:active {
-    transform: translateY(0);
-    box-shadow: none;
-  }
-
-  #role-toggle {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-left: 24px;
-  }
-  #role-toggle label {
-    font-size: 11px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #d8d4ff;
-  }
-  select {
-    font-size: 12px;
-    padding: 4px 28px 4px 8px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.25);
-    background: rgba(5,4,30,0.9);
-    color: #f6f4ff;
-    outline: none;
+    color: #b9b3ff;
   }
 
-  #notif-badge {
-    margin-left: auto;
+  header nav {
+    display: flex;
+    gap: 6px;
+    margin-left: 18px;
+  }
+
+  .nav-btn {
+    border-radius: 999px;
+    padding: 5px 10px;
     font-size: 11px;
-    padding: 4px 8px;
-    border-radius: 999px;
-    background: rgba(16,10,60,0.95);
-    border: 1px solid rgba(203,193,255,0.6);
-    color: #e8e5ff;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    background: rgba(12,8,40,0.7);
+    border: 1px solid rgba(255,255,255,0.15);
+    cursor: pointer;
+    color: #f4f3ff;
+    transition: background 0.12s, box-shadow 0.12s, transform 0.12s;
+  }
+  .nav-btn.active,
+  .nav-btn:hover {
+    background: rgba(150,120,255,0.95);
+    box-shadow: 0 0 12px rgba(155,125,255,0.85);
+    transform: translateY(-1px);
   }
 
-  /* Main layout */
   #main {
     flex: 1 1 auto;
     display: flex;
     min-height: 0;
   }
 
-  /* Left: profile + settings + payments */
   #left-panel {
-    flex: 0 0 320px;
-    border-right: 1px solid rgba(255,255,255,0.06);
-    background: radial-gradient(circle at 0 100%, rgba(140,110,255,0.38) 0, transparent 60%),
-                #050218;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    flex: 0 0 340px;
+    max-width: 360px;
+    background:
+      radial-gradient(circle at 0% 100%, rgba(145,110,255,0.5) 0, transparent 55%),
+      linear-gradient(to bottom, #0b0626, #050214);
+    border-right: 1px solid rgba(255,255,255,0.07);
+    padding: 10px 10px 10px 12px;
     overflow-y: auto;
   }
 
-  .panel {
-    background: rgba(7,5,30,0.88);
-    border-radius: 16px;
-    border: 1px solid rgba(210,196,255,0.25);
-    padding: 10px 10px 12px;
-    box-shadow: 0 16px 32px rgba(0,0,0,0.75);
+  #map-panel {
+    flex: 1 1 auto;
+    position: relative;
+    padding: 10px;
   }
 
-  .panel-title {
-    font-size: 11px;
+  #map-iframe {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    border: 0;
+    box-shadow:
+      0 24px 34px rgba(0,0,0,0.9),
+      0 0 0 1px rgba(255,255,255,0.06);
+    background: #02000b;
+  }
+
+  .panel {
+    display: none;
+  }
+  .panel.active {
+    display: block;
+  }
+
+  .panel h2 {
+    font-size: 13px;
     text-transform: uppercase;
-    letter-spacing: 0.16em;
-    color: #c7c0ff;
-    margin-bottom: 6px;
+    letter-spacing: 0.13em;
+    color: #c9c3ff;
+    margin: 10px 0 6px;
   }
 
   .field {
-    margin-top: 6px;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
+    margin-bottom: 8px;
   }
   .field label {
     font-size: 11px;
-    color: #dcd8ff;
+    text-transform: uppercase;
+    letter-spacing: 0.11em;
+    color: #a8a0ff;
+    display: block;
+    margin-bottom: 2px;
   }
-  input[type="text"],
-  input[type="number"],
-  textarea {
-    font-size: 12px;
+  .field input,
+  .field textarea,
+  .field select {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid rgba(220,210,255,0.4);
     padding: 6px 8px;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.18);
-    background: rgba(3,2,20,0.85);
-    color: #f6f4ff;
-    outline: none;
+    font-size: 12px;
+    background: rgba(10,6,40,0.9);
+    color: #f5f2ff;
   }
-  textarea {
+  .field textarea {
     resize: vertical;
-    min-height: 40px;
+    min-height: 50px;
   }
 
   .inline-fields {
     display: flex;
     gap: 6px;
   }
-  .inline-fields .field {
-    flex: 1;
-  }
+  .inline-fields .field { flex: 1; }
 
-  .checkbox {
-    display: flex;
-    align-items: flex-start;
-    gap: 6px;
-    margin-top: 4px;
-  }
-  .checkbox input[type="checkbox"] {
-    margin-top: 2px;
-  }
-  .checkbox span {
+  .small {
     font-size: 11px;
-    color: #ddd7ff;
+    color: #d0cbff;
   }
 
-  .small-note {
-    font-size: 10px;
-    color: #bfb7ff;
-    margin-top: 4px;
-  }
-
-  #profile-photos {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 4px;
-  }
-  .photo-preview {
-    width: 48px;
-    height: 48px;
-    border-radius: 10px;
-    background-size: cover;
-    background-position: center;
-    border: 1px solid rgba(255,255,255,0.2);
-  }
-
-  /* Center: map + job flow */
-  #center-panel {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    background:
-      radial-gradient(circle at 100% 0, rgba(110,210,255,0.4) 0, transparent 60%),
-      #030015;
-  }
-
-  #map-wrapper {
-    flex: 1 1 auto;
-    padding: 12px 12px 8px;
-    min-height: 0;
-  }
-  #map-frame-shell {
-    position: relative;
-    height: 100%;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow:
-      0 28px 36px rgba(0,0,0,0.9),
-      0 0 0 1px rgba(255,255,255,0.06);
-    background: radial-gradient(circle at 50% 0, #171036 0, #050214 55%, #01000a 100%);
-  }
-  #map-frame {
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-  #map-label {
-    position: absolute;
-    top: 8px;
-    left: 12px;
-    font-size: 10px;
-    padding: 4px 8px;
+  .btn-primary {
     border-radius: 999px;
-    background: rgba(7,5,30,0.9);
-    border: 1px solid rgba(210,196,255,0.5);
-    color: #e6e2ff;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-  }
-
-  #job-panel {
-    flex: 0 0 auto;
-    padding: 4px 12px 12px;
-    display: flex;
-    gap: 10px;
-  }
-
-  #job-left, #job-right {
-    flex: 1;
-  }
-
-  #job-summary {
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 6px 10px;
     font-size: 12px;
-    margin-top: 6px;
-  }
-  #job-total {
-    font-weight: 600;
-    color: #b3ffde;
-  }
-
-  /* Right: washers list + favorites + notifications */
-  #right-panel {
-    flex: 0 0 320px;
-    border-left: 1px solid rgba(255,255,255,0.06);
-    background: radial-gradient(circle at 100% 100%, rgba(120,210,255,0.32) 0, transparent 60%),
-                #050218;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    overflow-y: auto;
-  }
-
-  .washer-card {
-    border-radius: 14px;
-    border: 1px solid rgba(210,196,255,0.4);
-    background: rgba(9,7,34,0.9);
-    padding: 8px;
-    margin-top: 6px;
-  }
-  .washer-card-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .washer-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 999px;
-    background: radial-gradient(circle at 30% 20%, #ffffff 0, #dad3ff 40%, #7f6bff 75%, #22145c 100%);
-    box-shadow: 0 0 10px rgba(138,112,255,0.9);
-  }
-  .washer-name {
-    font-size: 12px;
-    font-weight: 600;
-  }
-  .washer-meta {
-    font-size: 11px;
-    color: #d7d3ff;
-  }
-  .washer-actions {
-    margin-top: 6px;
-    display: flex;
-    gap: 6px;
-  }
-  .btn-small {
-    font-size: 11px;
-    padding: 4px 8px;
-  }
-
-  .favorite-toggle {
-    margin-left: auto;
+    background: rgba(150,120,255,1);
+    color: #fdfbff;
     cursor: pointer;
-    font-size: 14px;
-  }
-
-  #notifications-list {
     margin-top: 8px;
-    font-size: 11px;
-    max-height: 140px;
-    overflow-y: auto;
-  }
-  .notif-item {
-    padding: 4px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  .notif-item:last-child {
-    border-bottom: none;
+    width: 100%;
   }
 
-  /* Toast */
-  #toast {
-    position: fixed;
-    right: 16px;
-    bottom: 16px;
-    padding: 8px 12px;
+  .pill {
+    border-radius: 999px;
+    padding: 3px 7px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    border: 1px solid rgba(255,255,255,0.22);
+    background: rgba(12,8,40,0.8);
+    display: inline-block;
+    margin-top: 4px;
+  }
+
+  #price-summary {
+    margin-top: 6px;
     font-size: 12px;
-    border-radius: 999px;
-    background: rgba(16,10,60,0.98);
-    border: 1px solid rgba(210,196,255,0.7);
-    color: #f6f4ff;
-    box-shadow: 0 18px 28px rgba(0,0,0,0.9);
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-    transition: opacity 0.18s, transform 0.18s;
-    z-index: 99;
-  }
-  #toast.show {
-    opacity: 1;
-    transform: translateY(0);
+    color: #f7f5ff;
   }
 
-  /* Scrollbars */
-  #left-panel::-webkit-scrollbar,
-  #right-panel::-webkit-scrollbar {
-    width: 6px;
+  #favorites-list {
+    font-size: 12px;
+    margin-top: 4px;
   }
-  #left-panel::-webkit-scrollbar-thumb,
-  #right-panel::-webkit-scrollbar-thumb {
-    background: rgba(171,156,255,0.6);
-    border-radius: 999px;
+  #favorites-list div {
+    padding: 4px 6px;
+    border-radius: 8px;
+    background: rgba(18,12,55,0.8);
+    margin-bottom: 3px;
   }
 
-  @media (max-width: 1040px) {
-    #left-panel, #right-panel {
-      flex: 0 0 260px;
-    }
+  #status {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    padding: 6px 9px;
+    font-size: 11px;
+    border-radius: 999px;
+    background: rgba(6,4,25,0.9);
+    color: #e8e3ff;
+    border: 1px solid rgba(206,195,255,0.35);
+    backdrop-filter: blur(8px);
   }
-  @media (max-width: 880px) {
-    #left-panel {
-      display: none;
-    }
-  }
-  @media (max-width: 720px) {
-    #right-panel {
-      display: none;
-    }
-  }
+  #status strong { color: #b3a6ff; }
 </style>
 </head>
 <body>
-<div id="topbar">
-  <div id="brand">
-    <div id="brand-icon"></div>
-    <div id="brand-text">
-      <div id="brand-title">Laundry Bubbles</div>
-      <div id="brand-subtitle">COSMIC WASH NETWORK</div>
-    </div>
-  </div>
-
-  <div id="role-toggle">
-    <label for="role-select">YOU ARE</label>
-    <select id="role-select">
-      <option value="client">CLIENT</option>
-      <option value="washer">WASHER</option>
-    </select>
-  </div>
-
-  <button id="start-session-btn" class="btn">
-    <span class="icon">🔐</span>
-    <span>Start secure session</span>
-  </button>
-
-  <div id="notif-badge">Notifications: <span id="notif-count">0</span></div>
-</div>
-
-<div id="main">
-  <!-- LEFT PANEL: Profile + Payments + Agreements -->
-  <div id="left-panel">
-    <div class="panel" id="profile-panel">
-      <div class="panel-title">Profile & Services</div>
-
-      <div class="field">
-        <label>Display name</label>
-        <input type="text" id="profile-name" placeholder="Ex: BubbleWizardATL" />
-      </div>
-
-      <div class="field">
-        <label>Short bio</label>
-        <textarea id="profile-bio" placeholder="Tell clients how you care for their clothes..."></textarea>
-      </div>
-
-      <div class="inline-fields">
-        <div class="field">
-          <label>Avg turnaround (hours)</label>
-          <input type="number" id="profile-turnaround" min="1" value="24" />
-        </div>
-        <div class="field">
-          <label>Base pickup fee ($)</label>
-          <input type="number" id="profile-pickup-fee" min="0" value="5" />
-        </div>
-      </div>
-
-      <div class="inline-fields">
-        <div class="field">
-          <label>Folding fee ($)</label>
-          <input type="number" id="profile-folding-fee" min="0" value="5" />
-        </div>
-        <div class="field">
-          <label>Price per pound ($)</label>
-          <input type="number" id="profile-per-pound" min="0" step="0.01" value="1.5" />
-        </div>
-      </div>
-
-      <div class="field">
-        <label>Work photos</label>
-        <input type="file" id="profile-photos-input" accept="image/*" multiple />
-        <div id="profile-photos"></div>
-        <div class="small-note">Photos stay on this device only in this prototype.</div>
-      </div>
-
-      <button id="save-profile-btn" class="btn" style="margin-top:8px;">
-        <span class="icon">💾</span><span>Save profile</span>
-      </button>
-    </div>
-
-    <div class="panel" id="payments-panel">
-      <div class="panel-title">Payments & Safety</div>
-
-      <div class="field">
-        <label>Your PayPal link</label>
-        <input type="text" id="pay-paypal" placeholder="https://paypal.me/yourname" />
-      </div>
-
-      <div class="inline-fields">
-        <div class="field">
-          <label>Cash App tag</label>
-          <input type="text" id="pay-cashapp" placeholder="$YourTag" />
-        </div>
-        <div class="field">
-          <label>Zelle info</label>
-          <input type="text" id="pay-zelle" placeholder="Phone or email" />
-        </div>
-      </div>
-
-      <div class="small-note">
-        Client will see this info when booking you. They pay you directly.
-      </div>
-
-      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:8px 0;" />
-
-      <div class="panel-title" style="margin-bottom:4px;">Mandatory safety step</div>
-      <div class="small-note">
-        For every job, both client and washer must pay a $1 safety fee to the Laundry Bubbles PayPal.
-      </div>
-
-      <button id="safety-fee-btn" class="btn" style="margin-top:6px;">
-        <span class="icon">🛡️</span><span>Open $1 safety PayPal link</span>
-      </button>
-    </div>
-
-    <div class="panel" id="agreements-panel">
-      <div class="panel-title">Disclosures & Agreements</div>
-      <div class="small-note">
-        These are example terms for the prototype. Real deployments need a lawyer & proper backend.
-      </div>
-
-      <div class="checkbox">
-        <input type="checkbox" id="agree-privacy" />
-        <span>I understand my personal contact and payment details are shared directly with my match.</span>
-      </div>
-      <div class="checkbox">
-        <input type="checkbox" id="agree-photos" />
-        <span>I agree to upload clear photos of pickup and dropoff to prove laundry handoff.</span>
-      </div>
-      <div class="checkbox">
-        <input type="checkbox" id="agree-no-garantee" />
-        <span>I understand this prototype does not guarantee insurance, loss coverage, or background checks.</span>
-      </div>
-
-      <button id="save-agreements-btn" class="btn" style="margin-top:8px;">
-        <span class="icon">✅</span><span>Confirm agreements</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- CENTER PANEL: Map + Job -->
-  <div id="center-panel">
-    <div id="map-wrapper">
-      <div id="map-frame-shell">
-        <div id="map-label">Laundry Bubbles · MAP ENGINE</div>
-        <iframe id="map-frame" src="https://boardwalkclay1.github.io/Map/" loading="lazy"></iframe>
+<div id="app">
+  <header>
+    <div id="brand">
+      <div id="brand-icon"></div>
+      <div id="brand-text">
+        <div id="brand-title">Laundry Bubbles</div>
+        <div id="brand-subtitle">COSMIC WASH NETWORK</div>
       </div>
     </div>
+    <nav>
+      <button class="nav-btn active" data-panel="profile-panel">Profile</button>
+      <button class="nav-btn" data-panel="pricing-panel">Pricing</button>
+      <button class="nav-btn" data-panel="job-panel">New Job</button>
+      <button class="nav-btn" data-panel="webrtc-panel">Connect</button>
+      <button class="nav-btn" data-panel="favorites-panel">Favorites</button>
+      <button class="nav-btn" data-panel="settings-panel">Settings</button>
+    </nav>
+  </header>
 
-    <div id="job-panel">
-      <div id="job-left" class="panel">
-        <div class="panel-title">Job details</div>
+  <div id="main">
+    <div id="left-panel">
+      <!-- Profile panel -->
+      <div class="panel active" id="profile-panel">
+        <h2>Profile</h2>
+        <div class="field">
+          <label>Role</label>
+          <select id="role">
+            <option value="client">Client</option>
+            <option value="washer">Washer</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Name</label>
+          <input id="name" type="text" placeholder="Your name" />
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input id="email" type="email" placeholder="you@example.com" />
+        </div>
+        <div class="field">
+          <label>Phone</label>
+          <input id="phone" type="tel" placeholder="Optional" />
+        </div>
+        <div class="field">
+          <label>Bio</label>
+          <textarea id="bio" placeholder="Describe your wash style / needs"></textarea>
+        </div>
+        <div class="field">
+          <label>Photos of your work</label>
+          <input id="photos-input" type="file" multiple accept="image/*" />
+          <div class="small">Add clean fold shots, setups, etc. (Local only for now.)</div>
+        </div>
+        <button class="btn-primary" id="save-profile-btn">Save profile locally</button>
+      </div>
+
+      <!-- Pricing panel -->
+      <div class="panel" id="pricing-panel">
+        <h2>Pricing</h2>
         <div class="inline-fields">
           <div class="field">
-            <label>Estimated pounds of laundry</label>
-            <input type="number" id="job-pounds" min="1" value="10" />
+            <label>Per pound ($)</label>
+            <input id="price-per-pound" type="number" step="0.01" />
           </div>
           <div class="field">
-            <label>Pickup needed?</label>
-            <select id="job-pickup">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </select>
+            <label>Pickup fee ($)</label>
+            <input id="pickup-fee" type="number" step="0.01" />
           </div>
         </div>
-
         <div class="inline-fields">
           <div class="field">
-            <label>Folding needed?</label>
-            <select id="job-folding">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </select>
+            <label>Folding fee ($)</label>
+            <input id="folding-fee" type="number" step="0.01" />
           </div>
           <div class="field">
-            <label>Special notes</label>
-            <input type="text" id="job-notes" placeholder="Ex: air dry, no bleach..." />
+            <label>Avg turnaround (hrs)</label>
+            <input id="turnaround" type="number" step="1" />
           </div>
         </div>
 
-        <div id="job-summary"></div>
-        <div class="small-note" style="margin-top:6px;">
-          Prices are calculated from the selected washer’s profile once you pick one.
-        </div>
-      </div>
-
-      <div id="job-right" class="panel">
-        <div class="panel-title">Proof photos & confirmation</div>
-
+        <h2>Payment methods</h2>
         <div class="field">
-          <label>Pickup photo</label>
-          <input type="file" id="pickup-photo-input" accept="image/*" />
-          <div id="pickup-photo-preview"></div>
+          <label>PayPal link</label>
+          <input id="paypal-link" type="text" placeholder="https://paypal.me/yourname" />
         </div>
-
         <div class="field">
-          <label>Dropoff photo</label>
-          <input type="file" id="dropoff-photo-input" accept="image/*" />
-          <div id="dropoff-photo-preview"></div>
+          <label>Cash App</label>
+          <input id="cashapp" type="text" placeholder="$Cashtag" />
+        </div>
+        <div class="field">
+          <label>Zelle</label>
+          <input id="zelle" type="text" placeholder="Email or phone" />
         </div>
 
-        <div class="small-note">
-          Photos stay local in this prototype. Real storage would need secure backend.
+        <button class="btn-primary" id="save-pricing-btn">Save pricing & payouts</button>
+      </div>
+
+      <!-- Job panel -->
+      <div class="panel" id="job-panel">
+        <h2>New Job</h2>
+        <span class="pill">Both sides pay $1 safety check via PayPal</span>
+        <div class="field">
+          <label>Estimated weight (lbs)</label>
+          <input id="job-weight" type="number" step="0.1" />
+        </div>
+        <div class="field">
+          <label>Include pickup?</label>
+          <select id="job-include-pickup">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Include folding?</label>
+          <select id="job-include-folding">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
         </div>
 
-        <button id="confirm-job-btn" class="btn" style="margin-top:8px;">
-          <span class="icon">🧼</span><span>Confirm job & notify washer</span>
-        </button>
+        <div id="price-summary">
+          Total: <strong id="job-total">$0.00</strong>
+          <div class="small" id="job-breakdown"></div>
+        </div>
+
+        <button class="btn-primary" id="calculate-job-btn">Calculate total</button>
+        <button class="btn-primary" id="pay-dollar-btn">Pay $1 safety check (PayPal)</button>
+
+        <h2>Proof photos</h2>
+        <div class="field">
+          <label>Pickup photos</label>
+          <input id="job-photo-pickup" type="file" multiple accept="image/*" />
+        </div>
+        <div class="field">
+          <label>Dropoff photos</label>
+          <input id="job-photo-dropoff" type="file" multiple accept="image/*" />
+        </div>
+      </div>
+
+      <!-- WebRTC panel -->
+      <div class="panel" id="webrtc-panel">
+        <h2>Connect (WebRTC)</h2>
+        <div class="small">
+          Step 1: Start a connection. Step 2: send the code via email. Step 3: paste their reply.
+        </div>
+        <div class="field">
+          <label>Your connection code (offer/answer)</label>
+          <textarea id="webrtc-local" readonly></textarea>
+        </div>
+        <button class="btn-primary" id="webrtc-create-offer-btn">Create connection offer</button>
+        <button class="btn-primary" id="webrtc-create-answer-btn">Create answer from pasted offer</button>
+        <div class="field">
+          <label>Paste remote code here</label>
+          <textarea id="webrtc-remote"></textarea>
+        </div>
+        <button class="btn-primary" id="webrtc-apply-remote-btn">Apply remote code</button>
+
+        <h2>Email share</h2>
+        <div class="field">
+          <label>Partner email</label>
+          <input id="webrtc-partner-email" type="email" placeholder="partner@example.com" />
+        </div>
+        <button class="btn-primary" id="webrtc-email-btn">Open email with prefilled code</button>
+      </div>
+
+      <!-- Favorites -->
+      <div class="panel" id="favorites-panel">
+        <h2>Favorites</h2>
+        <div class="small">Clients can keep a list of favorite washers.</div>
+        <div class="field">
+          <label>Add washer ID</label>
+          <input id="favorite-washer-id" type="text" placeholder="Washer user ID" />
+        </div>
+        <button class="btn-primary" id="add-favorite-btn">Add to favorites</button>
+        <div id="favorites-list"></div>
+      </div>
+
+      <!-- Settings / safety -->
+      <div class="panel" id="settings-panel">
+        <h2>Safety & Settings</h2>
+        <div class="field">
+          <label><input type="checkbox" id="notif-email" /> Email notifications</label>
+        </div>
+        <div class="field">
+          <label><input type="checkbox" id="notif-sms" /> SMS notifications</label>
+        </div>
+        <div class="field">
+          <label><input type="checkbox" id="accept-terms" /> I agree to the terms & conditions</label>
+        </div>
+        <div class="field">
+          <label><input type="checkbox" id="accept-disclosures" /> I understand this is peer-to-peer and I am responsible for my own safety</label>
+        </div>
+        <div class="small">
+          You’ll want a full **terms, privacy, and risk disclosure** page in the production version,
+          explaining responsibilities, no guarantees, and dispute handling.
+        </div>
+        <button class="btn-primary" id="save-settings-btn">Save settings</button>
       </div>
     </div>
-  </div>
 
-  <!-- RIGHT PANEL: Washers / Favorites / Notifications -->
-  <div id="right-panel">
-    <div class="panel">
-      <div class="panel-title">Available washers (demo)</div>
-      <div id="washers-list"></div>
-      <div class="small-note" style="margin-top:6px;">
-        In a real deployment, washers would be loaded from a secure backend, not hardcoded.
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-title">Your favorite washers</div>
-      <div id="favorites-list"></div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-title">Notifications</div>
-      <div id="notifications-list"></div>
+    <div id="map-panel">
+      <iframe id="map-iframe" src="https://boardwalkclay1.github.io/Map/" loading="lazy"></iframe>
+      <div id="status"><strong>Status:</strong> App shell loaded.</div>
     </div>
   </div>
 </div>
-
-<div id="toast"></div>
 
 <script>
-  // ===== Simple state & helpers =====
-  const LS_PROFILE_KEY = 'lb_profile';
-  const LS_FAVORITES_KEY = 'lb_favorites';
-  const LS_AGREEMENTS_KEY = 'lb_agreements';
+  // ===== Simple app state (local only for now) =====
+  const state = {
+    profile: null,
+    favorites: [],
+    settings: {
+      notificationsEmail: true,
+      notificationsSMS: false,
+      acceptTerms: false,
+      acceptDisclosures: false
+    },
+    pricing: {
+      perPound: 0,
+      pickupFee: 0,
+      foldingFee: 0,
+      avgTurnaroundHours: 24,
+      paypalLink: '',
+      cashapp: '',
+      zelle: ''
+    }
+  };
 
-  const roleSelect = document.getElementById('role-select');
-  const notifCountEl = document.getElementById('notif-count');
-  const notificationsList = document.getElementById('notifications-list');
-  const toastEl = document.getElementById('toast');
+  const statusEl = document.getElementById('status');
 
-  const washersListEl = document.getElementById('washers-list');
+  function setStatus(msg) {
+    statusEl.innerHTML = '<strong>Status:</strong> ' + msg;
+  }
+
+  // ===== Panel navigation =====
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const panelId = btn.getAttribute('data-panel');
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(panelId).classList.add('active');
+    });
+  });
+
+  // ===== Profile save/load =====
+  const roleEl = document.getElementById('role');
+  const nameEl = document.getElementById('name');
+  const emailEl = document.getElementById('email');
+  const phoneEl = document.getElementById('phone');
+  const bioEl = document.getElementById('bio');
+
+  document.getElementById('save-profile-btn').addEventListener('click', () => {
+    state.profile = {
+      id: 'user-' + (state.profile?.id || Math.random().toString(36).slice(2)),
+      role: roleEl.value,
+      name: nameEl.value,
+      email: emailEl.value,
+      phone: phoneEl.value,
+      bio: bioEl.value
+    };
+    localStorage.setItem('lb_profile', JSON.stringify(state.profile));
+    setStatus('Profile saved locally.');
+  });
+
+  function loadProfile() {
+    const saved = localStorage.getItem('lb_profile');
+    if (!saved) return;
+    state.profile = JSON.parse(saved);
+    roleEl.value = state.profile.role || 'client';
+    nameEl.value = state.profile.name || '';
+    emailEl.value = state.profile.email || '';
+    phoneEl.value = state.profile.phone || '';
+    bioEl.value = state.profile.bio || '';
+  }
+
+  // ===== Pricing & payment methods =====
+  const perPoundEl = document.getElementById('price-per-pound');
+  const pickupFeeEl = document.getElementById('pickup-fee');
+  const foldingFeeEl = document.getElementById('folding-fee');
+  const turnaroundEl = document.getElementById('turnaround');
+  const paypalLinkEl = document.getElementById('paypal-link');
+  const cashappEl = document.getElementById('cashapp');
+  const zelleEl = document.getElementById('zelle');
+
+  document.getElementById('save-pricing-btn').addEventListener('click', () => {
+    state.pricing = {
+      perPound: parseFloat(perPoundEl.value || '0'),
+      pickupFee: parseFloat(pickupFeeEl.value || '0'),
+      foldingFee: parseFloat(foldingFeeEl.value || '0'),
+      avgTurnaroundHours: parseFloat(turnaroundEl.value || '24'),
+      paypalLink: paypalLinkEl.value,
+      cashapp: cashappEl.value,
+      zelle: zelleEl.value
+    };
+    localStorage.setItem('lb_pricing', JSON.stringify(state.pricing));
+    setStatus('Pricing and payout info saved.');
+  });
+
+  function loadPricing() {
+    const saved = localStorage.getItem('lb_pricing');
+    if (!saved) return;
+    Object.assign(state.pricing, JSON.parse(saved));
+    perPoundEl.value = state.pricing.perPound || '';
+    pickupFeeEl.value = state.pricing.pickupFee || '';
+    foldingFeeEl.value = state.pricing.foldingFee || '';
+    turnaroundEl.value = state.pricing.avgTurnaroundHours || '';
+    paypalLinkEl.value = state.pricing.paypalLink || '';
+    cashappEl.value = state.pricing.cashapp || '';
+    zelleEl.value = state.pricing.zelle || '';
+  }
+
+  // ===== Job pricing calculation =====
+  const weightEl = document.getElementById('job-weight');
+  const includePickupEl = document.getElementById('job-include-pickup');
+  const includeFoldingEl = document.getElementById('job-include-folding');
+  const jobTotalEl = document.getElementById('job-total');
+  const jobBreakdownEl = document.getElementById('job-breakdown');
+
+  document.getElementById('calculate-job-btn').addEventListener('click', () => {
+    const weight = parseFloat(weightEl.value || '0');
+    const perPound = state.pricing.perPound || 0;
+    const pickupFee = includePickupEl.value === 'yes' ? (state.pricing.pickupFee || 0) : 0;
+    const foldingFee = includeFoldingEl.value === 'yes' ? (state.pricing.foldingFee || 0) : 0;
+
+    const perPoundTotal = weight * perPound;
+    const subtotal = perPoundTotal + pickupFee + foldingFee;
+    const total = subtotal;
+
+    jobTotalEl.textContent = '$' + total.toFixed(2);
+    jobBreakdownEl.textContent =
+      `${weight.toFixed(1)} lbs × $${perPound.toFixed(2)} + pickup $${pickupFee.toFixed(2)} + folding $${foldingFee.toFixed(2)}`;
+    setStatus('Job total calculated.');
+  });
+
+  // ===== $1 safety PayPal link (placeholder) =====
+  document.getElementById('pay-dollar-btn').addEventListener('click', () => {
+    // Use the washer's PayPal link OR your platform PayPal link
+    const link = state.pricing.paypalLink || 'https://www.paypal.com'; // replace with your actual $1 link
+    window.open(link, '_blank');
+    setStatus('Opened PayPal for $1 safety check (both client & washer should do this).');
+  });
+
+  // ===== Favorites =====
+  const favoriteInputEl = document.getElementById('favorite-washer-id');
   const favoritesListEl = document.getElementById('favorites-list');
 
-  const jobPoundsEl = document.getElementById('job-pounds');
-  const jobPickupEl = document.getElementById('job-pickup');
-  const jobFoldingEl = document.getElementById('job-folding');
-  const jobNotesEl = document.getElementById('job-notes');
-  const jobSummaryEl = document.getElementById('job-summary');
+  document.getElementById('add-favorite-btn').addEventListener('click', () => {
+    const id = favoriteInputEl.value.trim();
+    if (!id) return;
+    if (!state.favorites.includes(id)) {
+      state.favorites.push(id);
+      localStorage.setItem('lb_favorites', JSON.stringify(state.favorites));
+      renderFavorites();
+      favoriteInputEl.value = '';
+      setStatus('Washer saved to favorites.');
+    }
+  });
 
-  const pickupPhotoInput = document.getElementById('pickup-photo-input');
-  const pickupPhotoPreview = document.getElementById('pickup-photo-preview');
-  const dropoffPhotoInput = document.getElementById('dropoff-photo-input');
-  const dropoffPhotoPreview = document.getElementById('dropoff-photo-preview');
-
-  const safetyFeeBtn = document.getElementById('safety-fee-btn');
-  const startSessionBtn = document.getElementById('start-session-btn');
-
-  // profile fields
-  const profileNameEl = document.getElementById('profile-name');
-  const profileBioEl = document.getElementById('profile-bio');
-  const profileTurnaroundEl = document.getElementById('profile-turnaround');
-  const profilePickupFeeEl = document.getElementById('profile-pickup-fee');
-  const profileFoldingFeeEl = document.getElementById('profile-folding-fee');
-  const profilePerPoundEl = document.getElementById('profile-per-pound');
-  const profilePhotosInput = document.getElementById('profile-photos-input');
-  const profilePhotosContainer = document.getElementById('profile-photos');
-
-  const payPaypalEl = document.getElementById('pay-paypal');
-  const payCashappEl = document.getElementById('pay-cashapp');
-  const payZelleEl = document.getElementById('pay-zelle');
-
-  const agreePrivacyEl = document.getElementById('agree-privacy');
-  const agreePhotosEl = document.getElementById('agree-photos');
-  const agreeNoGaranteeEl = document.getElementById('agree-no-garantee');
-
-  let notifications = [];
-  let favorites = loadFavorites();
-  let washers = []; // sample data + "you" as washer if role=washer
-
-  function showToast(message) {
-    toastEl.textContent = message;
-    toastEl.classList.add('show');
-    setTimeout(() => toastEl.classList.remove('show'), 2600);
-  }
-
-  function addNotification(message) {
-    const item = { id: Date.now(), text: message };
-    notifications.unshift(item);
-    notifCountEl.textContent = notifications.length;
-    renderNotifications();
-  }
-
-  function renderNotifications() {
-    notificationsList.innerHTML = notifications.map(n => {
-      return `<div class="notif-item">${n.text}</div>`;
-    }).join('');
+  function renderFavorites() {
+    favoritesListEl.innerHTML = '';
+    state.favorites.forEach(id => {
+      const div = document.createElement('div');
+      div.textContent = 'Washer ID: ' + id;
+      favoritesListEl.appendChild(div);
+    });
   }
 
   function loadFavorites() {
-    try {
-      const raw = localStorage.getItem(LS_FAVORITES_KEY);
-      return raw ? JSON.parse(raw) : [];
-    } catch {
-      return [];
-    }
+    const saved = localStorage.getItem('lb_favorites');
+    if (!saved) return;
+    state.favorites = JSON.parse(saved);
+    renderFavorites();
   }
 
-  function saveFavorites() {
-    localStorage.setItem(LS_FAVORITES_KEY, JSON.stringify(favorites));
-  }
+  // ===== Settings =====
+  const notifEmailEl = document.getElementById('notif-email');
+  const notifSmsEl = document.getElementById('notif-sms');
+  const acceptTermsEl = document.getElementById('accept-terms');
+  const acceptDisclosuresEl = document.getElementById('accept-disclosures');
 
-  // ===== Profile & agreements local storage =====
-  function saveProfileToStorage() {
-    const profile = {
-      name: profileNameEl.value.trim(),
-      bio: profileBioEl.value.trim(),
-      turnaround: Number(profileTurnaroundEl.value) || 0,
-      pickupFee: Number(profilePickupFeeEl.value) || 0,
-      foldingFee: Number(profileFoldingFeeEl.value) || 0,
-      perPound: Number(profilePerPoundEl.value) || 0,
-      paypal: payPaypalEl.value.trim(),
-      cashapp: payCashappEl.value.trim(),
-      zelle: payZelleEl.value.trim()
-      // photos intentionally not persisted in this prototype (local only)
+  document.getElementById('save-settings-btn').addEventListener('click', () => {
+    state.settings = {
+      notificationsEmail: notifEmailEl.checked,
+      notificationsSMS: notifSmsEl.checked,
+      acceptTerms: acceptTermsEl.checked,
+      acceptDisclosures: acceptDisclosuresEl.checked
     };
-    localStorage.setItem(LS_PROFILE_KEY, JSON.stringify(profile));
-    showToast('Profile saved locally');
+    localStorage.setItem('lb_settings', JSON.stringify(state.settings));
+    setStatus('Settings saved locally. Make sure terms and disclosures are clear in production.');
+  });
+
+  function loadSettings() {
+    const saved = localStorage.getItem('lb_settings');
+    if (!saved) return;
+    Object.assign(state.settings, JSON.parse(saved));
+    notifEmailEl.checked = state.settings.notificationsEmail;
+    notifSmsEl.checked = state.settings.notificationsSMS;
+    acceptTermsEl.checked = state.settings.acceptTerms;
+    acceptDisclosuresEl.checked = state.settings.acceptDisclosures;
   }
 
-  function loadProfileFromStorage() {
-    try {
-      const raw = localStorage.getItem(LS_PROFILE_KEY);
-      if (!raw) return;
-      const p = JSON.parse(raw);
-      profileNameEl.value = p.name || '';
-      profileBioEl.value = p.bio || '';
-      profileTurnaroundEl.value = p.turnaround || 24;
-      profilePickupFeeEl.value = p.pickupFee || 5;
-      profileFoldingFeeEl.value = p.foldingFee || 5;
-      profilePerPoundEl.value = p.perPound || 1.5;
-      payPaypalEl.value = p.paypal || '';
-      payCashappEl.value = p.cashapp || '';
-      payZelleEl.value = p.zelle || '';
-    } catch {}
-  }
+  // ===== WebRTC shell (email-based exchange, data channel only) =====
+  let rtcPeer = null;
+  let dataChannel = null;
 
-  function saveAgreements() {
-    const data = {
-      privacy: !!agreePrivacyEl.checked,
-      photos: !!agreePhotosEl.checked,
-      noGuarantee: !!agreeNoGaranteeEl.checked
-    };
-    localStorage.setItem(LS_AGREEMENTS_KEY, JSON.stringify(data));
-    showToast('Agreements saved locally');
-  }
+  const webrtcLocalEl = document.getElementById('webrtc-local');
+  const webrtcRemoteEl = document.getElementById('webrtc-remote');
+  const webrtcPartnerEmailEl = document.getElementById('webrtc-partner-email');
 
-  function loadAgreements() {
-    try {
-      const raw = localStorage.getItem(LS_AGREEMENTS_KEY);
-      if (!raw) return;
-      const a = JSON.parse(raw);
-      agreePrivacyEl.checked = !!a.privacy;
-      agreePhotosEl.checked = !!a.photos;
-      agreeNoGaranteeEl.checked = !!a.noGuarantee;
-    } catch {}
-  }
+  async function createPeer(isInitiator) {
+    rtcPeer = new RTCPeerConnection({ iceServers: [] });
 
-  // ===== Photo previews =====
-  function previewImage(input, container) {
-    container.innerHTML = '';
-    if (!input.files || !input.files[0]) return;
-    const file = input.files[0];
-    const reader = new FileReader();
-    reader.onload = e => {
-      const div = document.createElement('div');
-      div.className = 'photo-preview';
-      div.style.backgroundImage = `url(${e.target.result})`;
-      container.appendChild(div);
-    };
-    reader.readAsDataURL(file);
-  }
-
-  pickupPhotoInput.addEventListener('change', () => previewImage(pickupPhotoInput, pickupPhotoPreview));
-  dropoffPhotoInput.addEventListener('change', () => previewImage(dropoffPhotoInput, dropoffPhotoPreview));
-
-  profilePhotosInput.addEventListener('change', () => {
-    profilePhotosContainer.innerHTML = '';
-    Array.from(profilePhotosInput.files || []).forEach(file => {
-      const reader = new FileReader();
-      reader.onload = e => {
-        const div = document.createElement('div');
-        div.className = 'photo-preview';
-        div.style.backgroundImage = `url(${e.target.result})`;
-        profilePhotosContainer.appendChild(div);
+    if (isInitiator) {
+      dataChannel = rtcPeer.createDataChannel('laundry-bubbles');
+      hookDataChannel(dataChannel);
+    } else {
+      rtcPeer.ondatachannel = (event) => {
+        dataChannel = event.channel;
+        hookDataChannel(dataChannel);
       };
-      reader.readAsDataURL(file);
-    });
+    }
+
+    rtcPeer.onicecandidate = () => {
+      // In this flow, we use the final SDP only (no trickle ICE).
+      // Users exchange the final code via email.
+      updateLocalCode();
+    };
+  }
+
+  function hookDataChannel(channel) {
+    channel.onopen = () => {
+      setStatus('WebRTC channel open. You can now send real-time messages between client and washer.');
+    };
+    channel.onmessage = (event) => {
+      // Here you can handle location updates, status, etc.
+      console.log('WebRTC message:', event.data);
+    };
+  }
+
+  async function updateLocalCode() {
+    if (!rtcPeer.localDescription) return;
+    const bundle = {
+      sdp: rtcPeer.localDescription
+    };
+    webrtcLocalEl.value = JSON.stringify(bundle);
+  }
+
+  document.getElementById('webrtc-create-offer-btn').addEventListener('click', async () => {
+    await createPeer(true);
+    const offer = await rtcPeer.createOffer();
+    await rtcPeer.setLocalDescription(offer);
+    await updateLocalCode();
+    setStatus('WebRTC offer created. Email this code to your partner.');
   });
 
-  // ===== Washers data (demo) =====
-  function buildDemoWashers() {
-    const myProfile = getProfileObject();
-    const list = [
-      {
-        id: 'demo1',
-        name: 'SpinMaster Westside',
-        bio: 'Fast folding, fragrance free, ATL West.',
-        turnaround: 12,
-        perPound: 1.75,
-        pickupFee: 7,
-        foldingFee: 5,
-        paypal: '',
-        cashapp: '$SpinMasterWest',
-        zelle: ''
-      },
-      {
-        id: 'demo2',
-        name: 'Midtown Bubble Studio',
-        bio: 'Delicate care + hang dry options.',
-        turnaround: 24,
-        perPound: 2.0,
-        pickupFee: 8,
-        foldingFee: 6,
-        paypal: 'https://paypal.me/midtownbubble',
-        cashapp: '',
-        zelle: ''
-      }
-    ];
-    if (myProfile.name) {
-      list.unshift({
-        id: 'me',
-        name: myProfile.name + ' (You)',
-        bio: myProfile.bio,
-        turnaround: myProfile.turnaround || 24,
-        perPound: myProfile.perPound || 1.5,
-        pickupFee: myProfile.pickupFee || 5,
-        foldingFee: myProfile.foldingFee || 5,
-        paypal: myProfile.paypal || '',
-        cashapp: myProfile.cashapp || '',
-        zelle: myProfile.zelle || ''
-      });
-    }
-    washers = list;
-  }
-
-  function getProfileObject() {
-    try {
-      const raw = localStorage.getItem(LS_PROFILE_KEY);
-      return raw ? JSON.parse(raw) : {};
-    } catch {
-      return {};
-    }
-  }
-
-  function isFavorite(id) {
-    return favorites.includes(id);
-  }
-
-  function toggleFavorite(id) {
-    if (favorites.includes(id)) {
-      favorites = favorites.filter(x => x !== id);
-    } else {
-      favorites.push(id);
-    }
-    saveFavorites();
-    renderWashers();
-    renderFavorites();
-  }
-
-  function renderWashers() {
-    washersListEl.innerHTML = washers.map(w => {
-      const avg = w.turnaround ? `${w.turnaround}h avg` : 'N/A';
-      const fav = isFavorite(w.id) ? '★' : '☆';
-      return `
-        <div class="washer-card">
-          <div class="washer-card-header">
-            <div class="washer-avatar"></div>
-            <div>
-              <div class="washer-name">${w.name}</div>
-              <div class="washer-meta">$${w.perPound.toFixed(2)}/lb · ${avg}</div>
-            </div>
-            <div class="favorite-toggle" data-id="${w.id}">${fav}</div>
-          </div>
-          <div class="washer-meta" style="margin-top:4px;">${w.bio || ''}</div>
-          <div class="washer-meta" style="margin-top:4px;">
-            Pickup: $${w.pickupFee.toFixed(2)} · Folding: $${w.foldingFee.toFixed(2)}
-          </div>
-          <div class="washer-actions">
-            <button class="btn btn-small" data-action="select-washer" data-id="${w.id}">Select</button>
-            <button class="btn btn-small" data-action="view-pay" data-id="${w.id}">Payment info</button>
-          </div>
-        </div>
-      `;
-    }).join('');
-
-    washersListEl.querySelectorAll('.favorite-toggle').forEach(el => {
-      el.addEventListener('click', () => toggleFavorite(el.dataset.id));
-    });
-
-    washersListEl.querySelectorAll('button[data-action="select-washer"]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.dataset.id;
-        const w = washers.find(x => x.id === id);
-        if (w) {
-          currentWasher = w;
-          addNotification(`Selected washer: ${w.name}`);
-          updateJobSummary();
-          showToast(`Washer selected: ${w.name}`);
-        }
-      });
-    });
-
-    washersListEl.querySelectorAll('button[data-action="view-pay"]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.dataset.id;
-        const w = washers.find(x => x.id === id);
-        if (w) {
-          const info = [
-            w.paypal ? `PayPal: ${w.paypal}` : null,
-            w.cashapp ? `Cash App: ${w.cashapp}` : null,
-            w.zelle ? `Zelle: ${w.zelle}` : null
-          ].filter(Boolean).join('\n') || 'No direct payment info defined.';
-          alert(`Payment info for ${w.name}:\n\n${info}`);
-        }
-      });
-    });
-  }
-
-  function renderFavorites() {
-    const favWashers = washers.filter(w => favorites.includes(w.id));
-    favoritesListEl.innerHTML = favWashers.map(w => {
-      return `
-        <div class="washer-card">
-          <div class="washer-card-header">
-            <div class="washer-avatar"></div>
-            <div>
-              <div class="washer-name">${w.name}</div>
-              <div class="washer-meta">$${w.perPound.toFixed(2)}/lb · ${w.turnaround}h avg</div>
-            </div>
-          </div>
-        </div>
-      `;
-    }).join('') || '<div class="small-note">No favorites yet. Tap the star on washers you like.</div>';
-  }
-
-  // ===== Job summary & pricing =====
-  let currentWasher = null;
-
-  function updateJobSummary() {
-    const pounds = Number(jobPoundsEl.value) || 0;
-    if (!currentWasher) {
-      jobSummaryEl.innerHTML = '<div class="small-note">Select a washer to see the total price.</div>';
-      return;
-    }
-
-    const perPound = currentWasher.perPound || 0;
-    const pickupFee = (jobPickupEl.value === 'yes') ? (currentWasher.pickupFee || 0) : 0;
-    const foldingFee = (jobFoldingEl.value === 'yes') ? (currentWasher.foldingFee || 0) : 0;
-
-    const base = pounds * perPound;
-    const total = base + pickupFee + foldingFee;
-
-    jobSummaryEl.innerHTML = `
-      <div>Washer: <strong>${currentWasher.name}</strong></div>
-      <div>Pounds: ${pounds} × $${perPound.toFixed(2)} = $${base.toFixed(2)}</div>
-      <div>Pickup: $${pickupFee.toFixed(2)}</div>
-      <div>Folding: $${foldingFee.toFixed(2)}</div>
-      <div style="margin-top:4px;">Total: <span id="job-total">$${total.toFixed(2)}</span></div>
-    `;
-  }
-
-  jobPoundsEl.addEventListener('input', updateJobSummary);
-  jobPickupEl.addEventListener('change', updateJobSummary);
-  jobFoldingEl.addEventListener('change', updateJobSummary);
-
-  // ===== Safety PayPal link ($1 fee) =====
-  safetyFeeBtn.addEventListener('click', () => {
-    // Replace this with your real PayPal.me link:
-    const safetyLink = 'https://paypal.me/boardwalkSafety/1';
-    window.open(safetyLink, '_blank');
-    showToast('Opening $1 safety PayPal link in new tab');
+  document.getElementById('webrtc-create-answer-btn').addEventListener('click', async () => {
+    const remoteTxt = webrtcRemoteEl.value.trim();
+    if (!remoteTxt) return;
+    const remote = JSON.parse(remoteTxt);
+    await createPeer(false);
+    await rtcPeer.setRemoteDescription(new RTCSessionDescription(remote.sdp));
+    const answer = await rtcPeer.createAnswer();
+    await rtcPeer.setLocalDescription(answer);
+    await updateLocalCode();
+    setStatus('WebRTC answer created. Email this code back to your partner.');
   });
 
-  // ===== Agreements =====
-  document.getElementById('save-profile-btn').addEventListener('click', () => {
-    saveProfileToStorage();
-    buildDemoWashers();
-    renderWashers();
-    renderFavorites();
-  });
-  document.getElementById('save-agreements-btn').addEventListener('click', saveAgreements);
-
-  // ===== Confirm job =====
-  document.getElementById('confirm-job-btn').addEventListener('click', () => {
-    if (!currentWasher) {
-      showToast('Select a washer first');
-      return;
-    }
-    if (!agreePrivacyEl.checked || !agreePhotosEl.checked || !agreeNoGaranteeEl.checked) {
-      alert('You must agree to all terms/disclosures before confirming a job.');
-      return;
-    }
-    if (!pickupPhotoInput.files[0] || !dropoffPhotoInput.files[0]) {
-      alert('Please add both pickup and dropoff photos to prove handoff.');
-      return;
-    }
-    addNotification(`Job created with ${currentWasher.name}. Total shown in summary.`);
-    showToast('Job confirmed. Notify washer via your channel.');
+  document.getElementById('webrtc-apply-remote-btn').addEventListener('click', async () => {
+    const remoteTxt = webrtcRemoteEl.value.trim();
+    if (!remoteTxt || !rtcPeer) return;
+    const remote = JSON.parse(remoteTxt);
+    await rtcPeer.setRemoteDescription(new RTCSessionDescription(remote.sdp));
+    setStatus('Remote code applied. WebRTC should complete soon.');
   });
 
-  // ===== WebRTC-style session via email (manual handshake) =====
-  startSessionBtn.addEventListener('click', () => {
-    const sessionCode = 'LB-' + Math.random().toString(36).slice(2, 10).toUpperCase();
-    const role = roleSelect.value === 'washer' ? 'Washer' : 'Client';
-
-    const subject = encodeURIComponent(`Laundry Bubbles secure session code: ${sessionCode}`);
-    const bodyLines = [
-      `Hi,`,
-      ``,
-      `Here is our Laundry Bubbles secure session code: ${sessionCode}`,
-      ``,
-      `Role sending this code: ${role}`,
-      ``,
-      `Copy/paste this code into the WebRTC connection flow when prompted in the future full app.`,
-      ``,
-      `– Laundry Bubbles prototype`
-    ];
-    const body = encodeURIComponent(bodyLines.join('\n'));
-
-    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
-    window.location.href = mailtoLink;
-    showToast(`Session code generated: ${sessionCode}`);
-    addNotification(`Generated secure session code: ${sessionCode}`);
-  });
-
-  // ===== Role switching =====
-  roleSelect.addEventListener('change', () => {
-    const role = roleSelect.value;
-    if (role === 'washer') {
-      addNotification('You switched to Washer view. Configure your profile so clients can see you.');
-    } else {
-      addNotification('You switched to Client view. Browse washers and start a job.');
-    }
-    renderNotifications();
+  document.getElementById('webrtc-email-btn').addEventListener('click', () => {
+    const to = encodeURIComponent(webrtcPartnerEmailEl.value || '');
+    const subject = encodeURIComponent('Laundry Bubbles connection code');
+    const body = encodeURIComponent(webrtcLocalEl.value || '');
+    const mailto = `mailto:${to}?subject=${subject}&body=${body}`;
+    window.location.href = mailto;
   });
 
   // ===== Init =====
-  loadProfileFromStorage();
-  loadAgreements();
-  buildDemoWashers();
-  renderWashers();
-  renderFavorites();
-  updateJobSummary();
-  addNotification('Laundry Bubbles prototype ready. Configure profile and test flows.');
+  loadProfile();
+  loadPricing();
+  loadFavorites();
+  loadSettings();
+  setStatus('App shell ready. Fill profile, pricing, and settings before real use.');
 </script>
 </body>
 </html>
